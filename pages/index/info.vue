@@ -53,7 +53,7 @@
 		},
 		data() {
 			return {
-				staffInfo: null,
+				staffInfo: {},
 				show: false,
 				title: '',
 				subdata: '',
@@ -93,6 +93,7 @@
 					success: res => {
 						let data = res.data;
 						this.staffInfo = data.data
+						console.log(data);
 					},
 					fail: () => {},
 					complete: () => {}

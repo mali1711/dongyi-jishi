@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/manageTime",
+    "pages/index/info",
+    "pages/index/modfiy",
+    "pages/index/person",
+    "pages/index/login",
+    "pages/index/forget",
+    "pages/index/register",
+    "pages/index/orderDetail",
+    "pages/index/upStaffInfo",
+    "pages/index/demo"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/images/order.png",
+        "selectedIconPath": "static/images/order-active.png",
+        "text": "订单中心"
+      },
+      {
+        "pagePath": "pages/index/manageTime",
+        "iconPath": "/static/images/timeManage.png",
+        "selectedIconPath": "static/images/timeManage-active.png",
+        "text": "时间管理"
+      },
+      {
+        "pagePath": "pages/index/info",
+        "iconPath": "static/images/persion.png",
+        "selectedIconPath": "static/images/persion-active.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "nvueCompiler": "uni-app",
+  "renderer": "auto",
+  "splashscreen": {
+    "alwaysShowBeforeRender": true,
+    "autoclose": false
+  },
+  "appname": "董亿技师端",
+  "compilerVersion": "2.6.5",
+  "usingComponents": {}
+}

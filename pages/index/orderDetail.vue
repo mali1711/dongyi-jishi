@@ -1,9 +1,8 @@
 <template>
 	<view class="content">
 		<view class="address">
-			<view>{{detailinfo.address_contacts}}</view>
-			<view>{{detailinfo.address_mobile}}</view>
-			<view>{{detailinfo.address}}</view>
+			<view style="">{{detailinfo.address_contacts}}</view>
+			<view style="">{{detailinfo.address_mobile}} {{detailinfo.address}}</view>
 		</view>
 		<view class="address-content">
 			<img class="projectImg" :src="srcPath+'/uploads/'+detailinfo.pr_info.photo" alt="">
@@ -19,15 +18,22 @@
 			</view>
 		</view>
 		<view class="address-content">
-			<img class="projectImg" :src="srcPath+'/uploads/'+detailinfo.st_info.pic_1" alt="">
 			<view class="address-content-desc">
-				<view class="prname">
-					<text class="protitle">{{detailinfo.subtime}}:</text>
-					<text class="proname">{{detailinfo.st_info.name}}</text>
+				<view class="prname margin202">
+					<text class="protitle">交通补助</text>
+					<text class="proname">{{detailinfo.subsidy}}¥</text>
 				</view>
-				<view class="prname">
+				<view class="prname margin202">
 					<text class="protitle">预约时间:</text>
-					<text class="proname">02-11 23:00:00</text>
+					<text class="proname">{{timestampToTime(detailinfo.subtime)}}</text>
+				</view>
+				<view class="prname margin202">
+					<text class="protitle">加购信息({{detailinfo.add_purchase_num}}分钟):</text>
+					<text class="proname">{{detailinfo.add_purchase_num*detailinfo.add_purchase_price}}¥</text>
+				</view>
+				<view class="prname margin202">
+					<text class="protitle">订单总金额:</text>
+					<text class="proname" style="color: red;font-size: 40rpx;">{{detailinfo.add_purchase_num*detailinfo.add_purchase_price+Number(detailinfo.total_price)}}¥</text>
 				</view>
 			</view>
 		</view>
@@ -37,7 +43,7 @@
 			</view>
 		</view> -->
 		<view class="sunui">
-			<view class="sunui-title">加价简介：最低加价数量2，单价¥50，每次加价20分钟,<text>当前已经加购数量<text class="yijiagou">{{totalnum}}</text>个</text></view>
+			<view class="sunui-title">{{detailinfo.note}}</view>
 		</view>
 		<button v-if="detailinfo.status==0" @click="receive(detailinfo.order_id)" type="warn">确认接单</button>
 	</view>
@@ -102,6 +108,40 @@
 					}
 				});
 			},
+			timestampToTime(timestamp) {
+			        var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+			        // let Y = date.getFullYear() + '-';
+			        // let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+			        // let D = date.getDate() + ' ';
+			        // let h = date.getHours() + ':';
+			        // let m = date.getMinutes() + ':';
+			        // let s = date.getSeconds();
+			        // return Y+this.padLeftZero(M)+this.padLeftZero(D)+this.padLeftZero(h)+this.padLeftZero(m)+this.padLeftZero(s);
+			        let y = date.getFullYear();
+			        let MM = date.getMonth() + 1;
+			        MM = MM < 10 ? ('0' + MM) : MM;
+			        let d = date.getDate();
+			        d = d < 10 ? ('0' + d) : d;
+			        let h = date.getHours();
+			        h = h < 10 ? ('0' + h) : h;
+			        let m = date.getMinutes();
+			        m = m < 10 ? ('0' + m) : m;
+			        let s = date.getSeconds();
+			        s = s < 10 ? ('0' + s) : s;
+			        return y + '-' + MM + '-' + d + ' ' + h + ':' + m;
+			    },
+				call(){
+						uni.makePhoneCall({
+							phoneNumber:'18396861513',
+							// 成功回调
+							success: (res) => {
+							},
+						
+							// 失败回调
+							fail: (res) => {
+							}
+						})
+				},
 			receive(order_id){
 				uni.request({
 					url: this.apiServer+'/staff/order/receipt',
@@ -137,6 +177,9 @@
 </script>
 
 <style>
+	.margin202{
+		margin-left: 202rpx;
+	}
 	.yijiagou{
 		color: #D8495D;
 		font-size: 40rpx;
@@ -151,7 +194,7 @@
 	.address {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
+		align-items: left;
 		justify-content: center;
 		/* 相对父元素水平居中 */
 		font-size: 30rpx;
