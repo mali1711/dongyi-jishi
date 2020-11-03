@@ -14,7 +14,7 @@
 					<cmd-cel-item title="证件号码" @click="fnClick('code')" :addon="staffInfo.code" arrow></cmd-cel-item>
 					<cmd-cel-item title="我的地址" @click="fnClick('address')" :addon="staffInfo.address" arrow></cmd-cel-item>
 					<cmd-cel-item title="修改密码" @click="fnClick('mobile')" arrow></cmd-cel-item>
-					<button class="btn-logout">退出登录</button>
+					<button @click="logout()" class="btn-logout">退出登录</button>
 				</view>
 			</cmd-transition>
 		</cmd-page-body>
@@ -79,9 +79,8 @@
 						uni.navigateTo({
 							url: '/pages/index/upStaffInfo?type=' + type
 						})
-					}	
+					}
 				}
-
 			},
 			initUserinfo() {
 				uni.request({
@@ -111,6 +110,12 @@
 			},
 			closeModal() {
 				this.show = false;
+			},
+			logout(){ // 退出登陆
+				uni.clearStorage();
+				uni.redirectTo({
+					url:'login',
+				})
 			}
 		}
 	}

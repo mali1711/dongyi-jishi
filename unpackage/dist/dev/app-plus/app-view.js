@@ -1510,7 +1510,15 @@ var render = function() {
                   }),
                   _c(
                     "v-uni-button",
-                    { staticClass: _vm._$g(14, "sc"), attrs: { _i: 14 } },
+                    {
+                      staticClass: _vm._$g(14, "sc"),
+                      attrs: { _i: 14 },
+                      on: {
+                        click: function($event) {
+                          return _vm.$handleViewEvent($event)
+                        }
+                      }
+                    },
                     [_vm._v("退出登录")]
                   )
                 ],
